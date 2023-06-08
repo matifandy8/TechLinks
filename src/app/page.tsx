@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import LargeHeading from "@/components/ui/LargeHeading";
 
 export const metadata: Metadata = {
-  title: "TechLink | Home",
+  title: "Tech Link | Home",
   description: "Free & open-source TechLink",
 };
 
