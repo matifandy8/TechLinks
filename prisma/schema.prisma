@@ -39,44 +39,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String           @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?          @unique
   emailVerified DateTime?
 
-  apiKey   ApiKey[]
-  apiKeyId String?
-  image    String?
-  accounts Account[]
-  sessions Session[]
-}
-
-model ApiKey {
-  id      String  @id @default(cuid())
-  key     String  @unique
-  enabled Boolean @default(true)
-  User    User    @relation(fields: [userId], references: [id])
-  userId  String
-
-  requests ApiRequest[]
-
-  @@unique([userId, key, enabled])
-}
-
-model ApiRequest {
-  id        String   @id @default(cuid())
-  timestamp DateTime @default(now())
-  method    String
-  path      String
-  status    Int
-  duration  Int
-
-  usedApiKey String
-
-  ApiKey   ApiKey @relation(fields: [apiKeyId], references: [id])
-  apiKeyId String
-
-  @@index([apiKeyId, timestamp])
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  links         Link[]           // New relation to Link model
 }
 
 model VerificationToken {
@@ -85,4 +56,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+
+model Link {
+  id           Int      @id @default(autoincrement())
+  url          String
+  title        String
+  description  String
+  userId       String?  // Foreign key to User model
+
+  user         User?    @relation(fields: [userId], references: [id]) // User relation
 }
