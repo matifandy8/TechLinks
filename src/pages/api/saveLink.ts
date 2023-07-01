@@ -1,19 +1,20 @@
 import { PrismaClient } from "@prisma/client";
-import { getSession } from "next-auth/react";
 
 const prisma = new PrismaClient();
 
 export default async function handler(req: any, res: any) {
   if (req.method === "GET") {
     try {
-      const { userId } = req.body;
+      const { userId } = req.query;
 
+      // Check if userId is provided
       if (!userId) {
         return res
           .status(400)
           .json({ success: false, error: "Missing userId" });
       }
 
+      // Retrieve all links for the provided userId
       const links = await prisma.link.findMany({
         where: { userId },
       });
@@ -25,16 +26,14 @@ export default async function handler(req: any, res: any) {
     }
   } else if (req.method === "POST") {
     try {
-      const { url, title, description } = req.body;
-      const session = await getSession({ req });
+      const { url, title, description, userId } = req.body;
 
-      // Create a new link for the logged-in user
       const savedLink = await prisma.link.create({
         data: {
           url,
           title,
           description,
-          userId: { id: session?.user?.id },
+          userId: userId,
         },
       });
 

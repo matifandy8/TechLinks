@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
 
-const SaveLinkForm = () => {
+const SaveLinkForm = ({ id }: any) => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("title is required"),
     description: Yup.string().required("description is required"),
@@ -24,21 +24,21 @@ const SaveLinkForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          userId: id,
+        }),
       });
 
       const { success, link } = await response.json();
 
       if (success) {
         console.log("Link saved:", link);
-        //logic for handling the successful saving of the link
       } else {
         console.error("Error saving link:", link);
-        //logic for handling the error in saving the link
       }
     } catch (error) {
       console.error("Error saving link:", error);
-      //logic for handling the request error
     }
   };
 
@@ -47,7 +47,7 @@ const SaveLinkForm = () => {
       <div className="flex flex-wrap -mx-3">
         <div className="w-full md:w-1/2 px-3 mb-4">
           <label htmlFor="title" className="text-white">
-            Name link Web
+            Name
           </label>
           <Input
             type="text"

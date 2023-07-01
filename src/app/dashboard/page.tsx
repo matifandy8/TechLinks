@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import LargeHeading from "@/components/ui/LargeHeading";
 import SaveLinkForm from "@/components/SaveLinkForm";
 import Paragraph from "@/components/ui/Paragraph";
+import ListLinks from "@/components/ListLinks";
 
 export const metadata: Metadata = {
   title: "Tech Link | Dashboard",
@@ -15,7 +16,6 @@ export const metadata: Metadata = {
 const page = async () => {
   const session = await getServerSession(authOptions);
   if (!session) return notFound();
-
   return (
     <div className="relative h-screen flex items-center justify-center overflow-x-hidden">
       <div className="container pt-44 max-w-7xl w-full mx-auto h-full">
@@ -27,7 +27,8 @@ const page = async () => {
             Dashboard
           </LargeHeading>
           <Paragraph>Add a new link.</Paragraph>
-          <SaveLinkForm />
+          <SaveLinkForm id={session.user.id} />
+          <ListLinks id={session.user.id} />
         </div>
       </div>
     </div>
