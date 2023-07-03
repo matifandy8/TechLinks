@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Paragraph from "./ui/Paragraph";
 
 interface Link {
-  id: number;
+  id: string;
   title: string;
   url: string;
   description: string;
@@ -14,7 +14,7 @@ interface Data {
   links: Link[];
 }
 
-const ListLinks = ({ id }: { id: number }) => {
+const ListLinks = ({ id }: { id: string }) => {
   const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {

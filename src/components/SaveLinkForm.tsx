@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
+import Label from "./ui/Label";
 
 const SaveLinkForm = ({ id }: any) => {
   const validationSchema = Yup.object().shape({
@@ -46,9 +47,7 @@ const SaveLinkForm = ({ id }: any) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-wrap -mx-3">
         <div className="w-full md:w-1/2 px-3 mb-4">
-          <label htmlFor="title" className="text-white">
-            Name
-          </label>
+          <Label htmlFor="title">Name</Label>
           <Input
             type="text"
             {...register("title")}
@@ -59,9 +58,7 @@ const SaveLinkForm = ({ id }: any) => {
           )}
         </div>
         <div className="w-full md:w-1/2 px-3 mb-4">
-          <label htmlFor="description" className="text-white">
-            Description
-          </label>
+          <Label htmlFor="description">Description</Label>
           <Input
             type="text"
             {...register("description")}
@@ -72,9 +69,7 @@ const SaveLinkForm = ({ id }: any) => {
           )}
         </div>
         <div className="w-full px-3 mb-4">
-          <label htmlFor="url" className="text-white">
-            Link URL
-          </label>
+          <Label htmlFor="url">Link URL</Label>
           <Input
             type="text"
             id="url"
