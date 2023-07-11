@@ -18,7 +18,7 @@ const ListLinks = ({ id }: { id: string }) => {
   const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/saveLink?userId=${id}`)
+    fetch(`https://tech-links.vercel.app/api/saveLink?userId=${id}`)
       .then((res) => res.json())
       .then((data: Data) => {
         setData(data);
